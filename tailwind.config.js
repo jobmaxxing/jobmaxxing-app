@@ -32,8 +32,8 @@ export default {
       },
       animation: {
         'float': 'float 6s ease-in-out infinite',
-        'float-delayed': 'float 6s ease-in-out infinite 2s',
-        'float-slow': 'float 8s ease-in-out infinite 1s',
+        'float-delayed': 'float 6s ease-in-out 2s infinite',
+        'float-slow': 'float 8s ease-in-out 1s infinite',
         'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
         'shimmer': 'shimmer 2s linear infinite',
         'spin-slow': 'spin 20s linear infinite',

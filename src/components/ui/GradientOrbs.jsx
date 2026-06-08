@@ -1,6 +1,56 @@
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 export default function GradientOrbs() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    // Detect mobile viewport or common in-app WebViews (Instagram, FB, etc.)
+    const checkMobile = () => {
+      const mobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Instagram|FBAN|FBAV/i.test(
+        navigator.userAgent
+      );
+      setIsMobile(window.innerWidth < 768 || mobileUA);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  if (isMobile) {
+    // Render static, smaller orbs for mobile/in-app browsers to prevent WebView memory crashes
+    return (
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* Blue orb top-left */}
+        <div
+          className="orb w-[250px] h-[250px] -top-20 -left-20 opacity-60"
+          style={{
+            background: 'radial-gradient(circle, rgba(59,130,246,0.3), transparent 70%)',
+            transform: 'translate3d(0,0,0)',
+          }}
+        />
+        {/* Purple orb top-right */}
+        <div
+          className="orb w-[250px] h-[250px] -top-10 -right-10 opacity-50"
+          style={{
+            background: 'radial-gradient(circle, rgba(124,58,237,0.25), transparent 70%)',
+            transform: 'translate3d(0,0,0)',
+          }}
+        />
+        {/* Teal orb center-bottom */}
+        <div
+          className="orb w-[200px] h-[200px] bottom-10 left-1/2 -translate-x-1/2 opacity-40"
+          style={{
+            background: 'radial-gradient(circle, rgba(6,182,212,0.2), transparent 70%)',
+            transform: 'translate3d(0,0,0)',
+          }}
+        />
+      </div>
+    );
+  }
+
+  // Fallback for desktop: Full size animated orbs
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
       {/* Large blue orb top-left */}

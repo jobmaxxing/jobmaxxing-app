@@ -10,6 +10,7 @@ import SocialProof from './components/SocialProof';
 import WaitlistSection from './components/WaitlistSection';
 import FAQ from './components/FAQ';
 import Footer from './components/Footer';
+import VisitorBadge from './components/ui/VisitorBadge';
 
 export default function App() {
   return (
@@ -30,6 +31,7 @@ export default function App() {
         <FAQ />
       </main>
       <Footer />
+      <VisitorBadge />
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { Zap } from 'lucide-react';
+import { LogoIcon } from './ui/LogoIcon';
 
 // ── Proper SVG brand icons ──────────────────────────────────────────
 const IconInstagram = ({ className }) => (
@@ -107,12 +107,17 @@ export default function Footer() {
               className="flex items-center gap-2.5 mb-4"
               onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
             >
-              <div className="w-9 h-9 rounded-xl glow-button flex items-center justify-center shadow-glow-blue">
-                <Zap className="w-5 h-5 text-white" fill="white" />
-              </div>
-              <span className="font-bold text-lg tracking-tight">
-                <span className="text-white">Job</span>
-                <span className="text-gradient-blue">Maxxing</span>
+              <LogoIcon size={30} />
+              <span
+                className="font-black text-lg tracking-widest uppercase"
+                style={{
+                  background: 'linear-gradient(135deg, #F97316, #FB923C)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                }}
+              >
+                JobMaxxing
               </span>
             </a>
             <p className="text-white/30 text-sm leading-relaxed max-w-xs mb-6">

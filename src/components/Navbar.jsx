@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Zap } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
+import { LogoIcon } from './ui/LogoIcon';
 
 const navLinks = [
   { label: 'Features', href: '#features' },
@@ -39,13 +40,24 @@ export default function Navbar() {
       >
         <div className="container-custom flex items-center justify-between h-16 px-6">
           {/* Logo */}
-          <a href="#" className="flex items-center gap-2.5 group" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
-            <div className="w-8 h-8 rounded-lg glow-button flex items-center justify-center shadow-glow-blue group-hover:scale-110 transition-transform duration-300">
-              <Zap className="w-4 h-4 text-white" fill="white" />
+          <a
+            href="#"
+            className="flex items-center gap-2.5 group"
+            onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+          >
+            <div className="group-hover:scale-110 transition-transform duration-300">
+              <LogoIcon size={28} />
             </div>
-            <span className="font-bold text-base tracking-tight">
-              <span className="text-white">Job</span>
-              <span className="text-gradient-blue">Maxxing</span>
+            <span
+              className="font-black text-base tracking-widest uppercase"
+              style={{
+                background: 'linear-gradient(135deg, #F97316, #FB923C)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+              }}
+            >
+              JobMaxxing
             </span>
           </a>
 

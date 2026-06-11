@@ -135,9 +135,7 @@ export default function Hero() {
               transition={{ duration: 0.7, delay: 0.35 }}
               className="mt-4 text-sm md:text-base text-white/50 max-w-md leading-relaxed"
             >
-              Everything you need to land better software jobs in India. Optimize your resume, beat ATS
-              filters, improve your GitHub profile, automate recruiter outreach, and maximize your chances
-              of getting hired.
+              Your ultimate one-stop resource to get hired. Optimize your resume, beat ATS filters, showcase your GitHub, automate recruiter outreach, and land top software developer jobs in India.
             </motion.p>
 
             {/* CTA Buttons */}

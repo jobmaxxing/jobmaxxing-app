@@ -5,7 +5,7 @@ import { ChevronDown } from 'lucide-react';
 const faqs = [
   {
     q: 'What is JobMaxxing?',
-    a: 'JobMaxxing is a career acceleration platform built specifically for Indian software developers. It combines AI-powered tools to optimize every aspect of your job search — from your resume and GitHub profile to cold emails and interview prep — helping you go from doom-applying to smart-applying.',
+    a: 'JobMaxxing is a career acceleration platform built specifically for Indian software developers. It functions as your one-stop resource to optimize every aspect of your job search — from your resume and GitHub profile to cold emails and interview prep — giving you a clear, streamlined path to getting hired.',
   },
   {
     q: 'Who is JobMaxxing for?',

@@ -20,7 +20,7 @@ const stats = [
     target: 100000,
     suffix: '+',
     label: 'Applications To Improve',
-    sub: 'From doom-applying to smart-applying',
+    sub: 'Accelerating direct hiring opportunities',
     color: 'text-gradient',
   },
 ];

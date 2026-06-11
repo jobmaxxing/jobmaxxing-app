@@ -180,10 +180,7 @@ export default function Footer() {
           <p className="text-white/25 text-xs">
             © 2026 JobMaxxing. All rights reserved. Made with ❤️ for developers.
           </p>
-          <div className="flex items-center gap-1.5">
-            <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-            <span className="text-white/25 text-xs">Pre-launch · Join the waitlist</span>
-          </div>
+          <span className="text-white/25 text-xs">Pre-launch · Join the waitlist</span>
         </div>
 
         {/* ── Creator credit strip ── */}

@@ -111,7 +111,6 @@ export default function Hero() {
                 color: '#60A5FA',
               }}
             >
-              <span className="badge-pulse" />
               Built for Software Developers
             </motion.div>
 

@@ -4,38 +4,35 @@
  * Fully SVG, no external deps.
  */
 
-export function LogoIcon({ size = 36, color = '#F97316' }) {
+export function LogoIcon({ size = 36, color = '#FF7324' }) {
   return (
     <svg
       width={size}
       height={Math.round(size * 1.72)}
-      viewBox="0 0 60 103"
+      viewBox="411 181 213 731"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
       {/* ── Left ear ── */}
-      <polygon points="18,2 9,23 27,23" fill={color} />
+      <polygon points="457,181 421,280 486,280" fill={color} />
 
       {/* ── Right ear ── */}
-      <polygon points="42,2 33,23 51,23" fill={color} />
+      <polygon points="575,181 546,280 612,280" fill={color} />
 
-      {/* ── Fox head (wide pentagon) ── */}
-      <polygon points="8,21 1,40 30,54 59,40 52,21" fill={color} />
+      {/* ── Fox head (triangle pointing down) ── */}
+      <polygon points="422,303 611,303 516.5,431" fill={color} />
 
-      {/* ── White face chevron (fox chin / cheek markings) ── */}
-      <polygon points="30,28 16,44 30,38 44,44" fill="white" />
+      {/* ── Nose (small brown triangle) ── */}
+      <polygon points="497,432 536,432 516.5,467" fill="#853014" />
 
-      {/* ── Tie (knot + blade as one shape) ── */}
-      <polygon points="22,52 38,52 48,66 30,101 12,66" fill={color} />
-
-      {/* ── White tie-knot dimple ── */}
-      <polygon points="30,52 22,62 38,62" fill="white" />
+      {/* ── Tie (collar notch + blade) ── */}
+      <polygon points="465,430 516.5,517 568,430 624,815 516.5,912 411,815" fill={color} />
     </svg>
   );
 }
 
 /** Full horizontal lockup: icon + wordmark */
-export function LogoFull({ iconSize = 36, textSize = 18, color = '#F97316' }) {
+export function LogoFull({ iconSize = 36, textSize = 18, color = '#FF7324' }) {
   return (
     <span style={{ display: 'inline-flex', alignItems: 'center', gap: 10 }}>
       <LogoIcon size={iconSize} color={color} />

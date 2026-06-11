@@ -1,14 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 103">
-  <!-- Left ear -->
-  <polygon points="18,2 9,23 27,23" fill="#F97316"/>
-  <!-- Right ear -->
-  <polygon points="42,2 33,23 51,23" fill="#F97316"/>
-  <!-- Fox head -->
-  <polygon points="8,21 1,40 30,54 59,40 52,21" fill="#F97316"/>
-  <!-- White face chevron -->
-  <polygon points="30,28 16,44 30,38 44,44" fill="white"/>
-  <!-- Tie knot + blade -->
-  <polygon points="22,52 38,52 48,66 30,101 12,66" fill="#F97316"/>
-  <!-- White tie fold -->
-  <polygon points="30,52 22,62 38,62" fill="white"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="411 181 213 731">
+  <!-- Left Ear -->
+  <polygon points="457,181 421,280 486,280" fill="#FF7324" />
+  <!-- Right Ear -->
+  <polygon points="575,181 546,280 612,280" fill="#FF7324" />
+  <!-- Head -->
+  <polygon points="422,303 611,303 516.5,431" fill="#FF7324" />
+  <!-- Nose -->
+  <polygon points="497,432 536,432 516.5,467" fill="#853014" />
+  <!-- Tie -->
+  <polygon points="465,430 516.5,517 568,430 624,815 516.5,912 411,815" fill="#FF7324" />
 </svg>

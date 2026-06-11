@@ -117,7 +117,7 @@ const features = [
       lines: [
         { label: 'Match Score', value: '81%', color: 'text-orange-400' },
         { label: '⚠ Missing: Docker, Redis', color: 'text-amber-400' },
-        { label: '₹ Potential: ₹12–18 LPA', color: 'text-green-400' },
+        { label: '$ Potential: $120k–$180k', color: 'text-green-400' },
       ],
     },
     accentColor: 'rgba(249,115,22,0.1)',
@@ -219,7 +219,7 @@ export default function FeaturesSection() {
           <span className="text-sm font-semibold text-purple-400/80 tracking-widest uppercase mb-4 block">Features</span>
           <h2 className="text-3xl md:text-5xl font-black text-white leading-tight max-w-3xl mx-auto mb-4">
             The Career Operating System for{' '}
-            <span className="text-gradient">Indian Developers</span>
+            <span className="text-gradient">Developers</span>
           </h2>
           <p className="text-white/40 text-base max-w-xl mx-auto">
             10 powerful tools to maximize every aspect of your job search.

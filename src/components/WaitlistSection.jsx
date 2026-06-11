@@ -73,7 +73,7 @@ export default function WaitlistSection() {
           </h2>
 
           <p className="text-white/50 text-lg mb-10 leading-relaxed">
-            Join ambitious Indian developers who want to stop doom-applying and start optimizing.
+            Join ambitious developers who want to stop doom-applying and start optimizing.
           </p>
 
           {status === 'success' ? (
@@ -104,7 +104,7 @@ export default function WaitlistSection() {
                   <input
                     id="waitlist-name"
                     type="text"
-                    placeholder="Rahul Sharma"
+                    placeholder="Alex Rivera"
                     value={form.name}
                     onChange={(e) => setForm({ ...form, name: e.target.value })}
                     required
@@ -124,7 +124,7 @@ export default function WaitlistSection() {
                   <input
                     id="waitlist-email"
                     type="email"
-                    placeholder="rahul@gmail.com"
+                    placeholder="alex@gmail.com"
                     value={form.email}
                     onChange={(e) => setForm({ ...form, email: e.target.value })}
                     required

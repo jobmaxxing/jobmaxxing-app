@@ -69,7 +69,7 @@ export default function ProblemSection() {
         >
           <span className="text-sm font-semibold text-red-400/80 tracking-widest uppercase mb-4 block">The Problem</span>
           <h2 className="text-3xl md:text-5xl font-black text-white leading-tight max-w-3xl mx-auto">
-            Indian Developers Deserve Better Than{' '}
+            Software Developers Deserve Better Than{' '}
             <span className="text-gradient">Generic Job Portals</span>
           </h2>
         </motion.div>

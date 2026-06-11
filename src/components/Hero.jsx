@@ -112,7 +112,7 @@ export default function Hero() {
               }}
             >
               <span className="badge-pulse" />
-              Built for Indian Developers
+              Built for Software Developers
             </motion.div>
 
             {/* Headline */}
@@ -135,7 +135,7 @@ export default function Hero() {
               transition={{ duration: 0.7, delay: 0.35 }}
               className="mt-4 text-sm md:text-base text-white/50 max-w-md leading-relaxed"
             >
-              Your ultimate one-stop resource to get hired. Optimize your resume, beat ATS filters, showcase your GitHub, automate recruiter outreach, and land top software developer jobs in India.
+              Your ultimate one-stop resource to get hired. Optimize your resume, beat ATS filters, showcase your GitHub, automate recruiter outreach, and land top software developer jobs.
             </motion.p>
 
             {/* CTA Buttons */}
@@ -171,7 +171,7 @@ export default function Hero() {
               {[
                 { value: '10K+', label: 'Developers Joining' },
                 { value: '10', label: 'Career Features' },
-                { value: '100%', label: 'India Focused' },
+                { value: '100%', label: 'Developer Focused' },
               ].map((stat) => (
                 <div key={stat.label} className="flex flex-col gap-1">
                   <span className="text-xl font-black text-gradient-blue">{stat.value}</span>

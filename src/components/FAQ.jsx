@@ -5,11 +5,11 @@ import { ChevronDown } from 'lucide-react';
 const faqs = [
   {
     q: 'What is JobMaxxing?',
-    a: 'JobMaxxing is a career acceleration platform built specifically for Indian software developers. It functions as your one-stop resource to optimize every aspect of your job search — from your resume and GitHub profile to cold emails and interview prep — giving you a clear, streamlined path to getting hired.',
+    a: 'JobMaxxing is a career acceleration platform built for software developers. It functions as your one-stop resource to optimize every aspect of your job search — from your resume and GitHub profile to cold emails and interview prep — giving you a clear, streamlined path to getting hired.',
   },
   {
     q: 'Who is JobMaxxing for?',
-    a: 'JobMaxxing is built for Indian software developers at all experience levels — freshers looking for their first job, developers targeting product companies, those aiming for remote-first roles, and experienced engineers looking to switch companies or negotiate better salaries.',
+    a: 'JobMaxxing is built for software developers at all experience levels — freshers looking for their first job, developers targeting product companies, those aiming for remote-first roles, and experienced engineers looking to switch companies or negotiate better salaries.',
   },
   {
     q: 'When will it launch?',
@@ -17,7 +17,7 @@ const faqs = [
   },
   {
     q: 'Is it free?',
-    a: 'We\'re still finalizing our pricing model. Early waitlist members will get exclusive discounted access. Follow our updates for pricing announcements — we\'re committed to making it affordable for Indian developers.',
+    a: 'We\'re still finalizing our pricing model. Early waitlist members will get exclusive discounted access. Follow our updates for pricing announcements — we\'re committed to making it affordable for all developers.',
   },
   {
     q: 'How does ATS Maxxing work?',
@@ -32,8 +32,8 @@ const faqs = [
     a: 'Cold Mail Maxxing generates highly personalized email templates and can assist with bulk outreach campaigns. Automation features including follow-ups and scheduling are part of our Q3 roadmap. The goal is smarter, not spammy, outreach.',
   },
   {
-    q: 'Is it built specifically for Indian developers?',
-    a: 'Absolutely. JobMaxxing is designed around the Indian tech job market — including India-specific salary benchmarks, top Indian startup and product company targeting, ATS systems used by Indian recruiters, and strategies tailored to how hiring actually works in India.',
+    q: 'Is it built for developers globally?',
+    a: 'Absolutely. JobMaxxing is designed around the global tech job market — including salary benchmarks, top startup and product company targeting, ATS systems used by modern recruiters, and strategies tailored to how modern hiring actually works.',
   },
 ];
 

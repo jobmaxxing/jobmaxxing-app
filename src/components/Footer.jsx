@@ -123,7 +123,7 @@ export default function Footer() {
             <p className="text-white/30 text-sm leading-relaxed max-w-xs mb-6">
               Stop Doom-Applying. Start JobMaxxing.
               <br />
-              The career acceleration platform built for Indian software developers.
+              The career acceleration platform built for software developers.
             </p>
             {/* Social icons row */}
             <div className="flex items-center gap-3">
@@ -178,7 +178,7 @@ export default function Footer() {
           style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}
         >
           <p className="text-white/25 text-xs">
-            © 2026 JobMaxxing. All rights reserved. Made with ❤️ for Indian developers.
+            © 2026 JobMaxxing. All rights reserved. Made with ❤️ for developers.
           </p>
           <div className="flex items-center gap-1.5">
             <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />

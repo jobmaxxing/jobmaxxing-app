@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, CheckCircle2, Loader2 } from 'lucide-react';
+import { supabase } from '../lib/supabaseClient';
 
 export default function WaitlistSection() {
   const [form, setForm] = useState({ name: '', email: '' });
@@ -10,10 +11,17 @@ export default function WaitlistSection() {
     e.preventDefault();
     if (!form.name.trim() || !form.email.trim()) return;
     setStatus('loading');
+    try {
+      const { data, error } = await supabase
+        .from('waitlist')
+        .insert([{ name: form.name, email: form.email }]);
+      if (error) throw error;
 
-    // Simulate API call
-    await new Promise((res) => setTimeout(res, 1500));
-    setStatus('success');
+      setStatus('success');
+    } catch (error) {
+      console.error('Error inserting waitlist data:', error.message);
+      setStatus('error');
+    }
   };
 
   return (

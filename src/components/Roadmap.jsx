@@ -3,25 +3,25 @@ import { Clock } from 'lucide-react';
 
 const quarters = [
   {
-    label: 'Q1 2026',
+    label: 'Q4 2026',
     color: 'from-blue-500 to-blue-700',
     glow: 'rgba(59,130,246,0.4)',
     items: ['Resume Maxxing'],
   },
   {
-    label: 'Q2 2026',
+    label: 'Q1 2027',
     color: 'from-purple-500 to-purple-700',
     glow: 'rgba(124,58,237,0.4)',
     items: ['ATS Maxxing', 'Job Maxxing'],
   },
   {
-    label: 'Q3 2026',
+    label: 'Q2 2027',
     color: 'from-cyan-500 to-teal-600',
     glow: 'rgba(6,182,212,0.4)',
     items: ['Cold Mail Maxxing', 'GitHub Maxxing'],
   },
   {
-    label: 'Q4 2026',
+    label: 'Q3 2027',
     color: 'from-amber-500 to-orange-600',
     glow: 'rgba(245,158,11,0.4)',
     items: ['Portfolio Maxxing', 'Referral Maxxing', 'Interview Maxxing', 'LinkedIn Maxxing', 'Salary Maxxing'],

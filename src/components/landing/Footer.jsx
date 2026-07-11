@@ -1,4 +1,4 @@
-import { LogoIcon } from './ui/LogoIcon';
+import { LogoIcon } from '../ui/LogoIcon';
 
 // ── Proper SVG brand icons ──────────────────────────────────────────
 const IconInstagram = ({ className }) => (
@@ -91,41 +91,24 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative overflow-hidden">
-      {/* Top border */}
-      <div
-        className="absolute top-0 left-0 right-0 h-px"
-        style={{ background: 'linear-gradient(90deg, transparent, rgba(99,102,241,0.3), rgba(124,58,237,0.3), transparent)' }}
-      />
-
+    <footer className="relative overflow-hidden border-t border-line">
       <div className="container-custom px-6 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+        <div className="mb-12 grid grid-cols-1 gap-10 md:grid-cols-4">
           {/* Brand */}
           <div className="md:col-span-2">
             <a
               href="#"
-              className="flex items-center gap-2.5 mb-4"
+              className="mb-4 flex items-center gap-2.5"
               onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
             >
               <LogoIcon size={30} />
-              <span
-                className="font-black text-lg tracking-widest uppercase"
-                style={{
-                  background: 'linear-gradient(135deg, #F97316, #FB923C)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
-                }}
-              >
-                JobMaxxing
-              </span>
+              <span className="font-heading text-lg font-black uppercase tracking-widest text-ink">JobMaxxing</span>
             </a>
-            <p className="text-white/30 text-sm leading-relaxed max-w-xs mb-6">
+            <p className="mb-6 max-w-xs text-sm leading-relaxed text-muted">
               Stop Doom-Applying. Start JobMaxxing.
               <br />
               The career acceleration platform built for software developers.
             </p>
-            {/* Social icons row */}
             <div className="flex items-center gap-3">
               {socials.map((social) => (
                 <a
@@ -134,18 +117,9 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={social.label}
-                  className="w-9 h-9 rounded-lg flex items-center justify-center text-white/40 hover:text-white transition-all duration-200"
-                  style={{ border: '1px solid rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.03)' }}
-                  onMouseOver={(e) => {
-                    e.currentTarget.style.borderColor = 'rgba(99,102,241,0.4)';
-                    e.currentTarget.style.background = 'rgba(99,102,241,0.1)';
-                  }}
-                  onMouseOut={(e) => {
-                    e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)';
-                    e.currentTarget.style.background = 'rgba(255,255,255,0.03)';
-                  }}
+                  className="flex h-9 w-9 items-center justify-center rounded-lg border border-line text-muted transition-colors duration-150 hover:text-ink"
                 >
-                  <social.Icon className="w-4 h-4" />
+                  <social.Icon className="h-4 w-4" />
                 </a>
               ))}
             </div>
@@ -154,14 +128,14 @@ export default function Footer() {
           {/* Links */}
           {links.map((group) => (
             <div key={group.heading}>
-              <h4 className="text-white/60 text-xs font-semibold tracking-widest uppercase mb-5">{group.heading}</h4>
+              <h4 className="mb-5 text-xs font-semibold uppercase tracking-widest text-muted">{group.heading}</h4>
               <ul className="space-y-3">
                 {group.items.map((item) => (
                   <li key={item.label}>
                     <a
                       href={item.href}
                       onClick={(e) => handleNavClick(e, item.href)}
-                      className="text-white/40 text-sm hover:text-white transition-colors duration-200"
+                      className="text-sm text-muted transition-colors duration-150 hover:text-ink"
                     >
                       {item.label}
                     </a>
@@ -173,37 +147,17 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div
-          className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4"
-          style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}
-        >
-          <p className="text-white/25 text-xs">
-            © 2026 JobMaxxing. All rights reserved. Made with ❤️ for developers.
-          </p>
-          <span className="text-white/25 text-xs">Pre-launch · Join the waitlist</span>
+        <div className="flex flex-col items-center justify-between gap-4 border-t border-line pt-8 sm:flex-row">
+          <p className="text-xs text-muted">© 2026 JobMaxxing. All rights reserved. Made with ❤️ for developers.</p>
+          <span className="text-xs text-muted">Pre-launch · Join the waitlist</span>
         </div>
 
-        {/* ── Creator credit strip ── */}
-        <div
-          className="mt-8 pt-8 flex flex-col items-center gap-5"
-          style={{ borderTop: '1px solid rgba(255,255,255,0.04)' }}
-        >
-          <p className="text-white/30 text-xs tracking-wide">
-            Designed &amp; built by{' '}
-            <span
-              className="font-semibold text-sm"
-              style={{
-                background: 'linear-gradient(135deg, #60A5FA, #A78BFA)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-              }}
-            >
-              Twaran Gupta
-            </span>
+        {/* Creator credit strip */}
+        <div className="mt-8 flex flex-col items-center gap-5 border-t border-line pt-8">
+          <p className="text-xs tracking-wide text-muted">
+            Designed &amp; built by <span className="text-sm font-semibold text-ink">Twaran Gupta</span>
           </p>
 
-          {/* Creator social links with real icons */}
           <div className="flex flex-wrap justify-center gap-3">
             {creatorSocials.map((s) => (
               <a
@@ -212,23 +166,9 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={s.label}
-                className="flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-medium text-white/40 hover:text-white transition-all duration-200"
-                style={{
-                  border: '1px solid rgba(255,255,255,0.07)',
-                  background: 'rgba(255,255,255,0.02)',
-                }}
-                onMouseOver={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(99,102,241,0.4)';
-                  e.currentTarget.style.background = 'rgba(99,102,241,0.08)';
-                  e.currentTarget.style.color = '#fff';
-                }}
-                onMouseOut={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)';
-                  e.currentTarget.style.background = 'rgba(255,255,255,0.02)';
-                  e.currentTarget.style.color = 'rgba(255,255,255,0.4)';
-                }}
+                className="flex items-center gap-2 rounded-lg border border-line px-3.5 py-2 text-xs font-medium text-muted transition-colors duration-150 hover:text-ink"
               >
-                <s.Icon className="w-3.5 h-3.5 flex-shrink-0" />
+                <s.Icon className="h-3.5 w-3.5 shrink-0" />
                 <span>{s.handle}</span>
               </a>
             ))}

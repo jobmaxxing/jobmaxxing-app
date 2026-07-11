@@ -1,0 +1,638 @@
+<title>JobMaxxing — MVP Backend Build Checklist</title>
+<style>
+  :root {
+    --ink: #161B22; --canvas: #F6F7FA; --surface: #FFFFFF; --surface-2: #EEF1F6;
+    --line: #DCE1E9; --muted: #5B6472; --accent: #2F5FD6; --accent-soft: #E8EEFC; --accent-ink: #1B3E99;
+    --good: #1A8754; --good-soft: #E3F5EC;
+    --font-head: -apple-system, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    --font-body: ui-serif, Georgia, "Iowan Old Style", "Times New Roman", serif;
+    --font-mono: ui-monospace, "SF Mono", "Cascadia Code", Consolas, "Roboto Mono", monospace;
+    --shadow-soft: 0 1px 2px rgba(20,30,50,.06), 0 2px 10px rgba(20,30,50,.05);
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --ink:#E7EAF0; --canvas:#10131A; --surface:#161B24; --surface-2:#1D232E; --line:#2A3140; --muted:#8C97AA;
+      --accent:#6E93EC; --accent-soft:#1D2C4C; --accent-ink:#AFC3F5; --good:#35C185; --good-soft:#123526;
+      --shadow-soft: 0 1px 2px rgba(0,0,0,.35), 0 2px 10px rgba(0,0,0,.28); color-scheme: dark; }
+  }
+  :root[data-theme="dark"] { --ink:#E7EAF0; --canvas:#10131A; --surface:#161B24; --surface-2:#1D232E; --line:#2A3140; --muted:#8C97AA;
+    --accent:#6E93EC; --accent-soft:#1D2C4C; --accent-ink:#AFC3F5; --good:#35C185; --good-soft:#123526;
+    --shadow-soft: 0 1px 2px rgba(0,0,0,.35), 0 2px 10px rgba(0,0,0,.28); color-scheme: dark; }
+  :root[data-theme="light"] { --ink:#161B22; --canvas:#F6F7FA; --surface:#FFFFFF; --surface-2:#EEF1F6; --line:#DCE1E9; --muted:#5B6472;
+    --accent:#2F5FD6; --accent-soft:#E8EEFC; --accent-ink:#1B3E99; --good:#1A8754; --good-soft:#E3F5EC;
+    --shadow-soft: 0 1px 2px rgba(20,30,50,.06), 0 2px 10px rgba(20,30,50,.05); color-scheme: light; }
+
+  * { box-sizing: border-box; }
+  html,body { margin:0; padding:0; }
+  body { background:var(--canvas); color:var(--ink); font-family:var(--font-body); font-size:16px; line-height:1.55; }
+  ::selection { background:var(--accent-soft); color:var(--accent-ink); }
+  h1,h2,h3,h4,.eyebrow,.btn,.badge,.step-label,.subgroup { font-family: var(--font-head); }
+  code { font-family: var(--font-mono); background: var(--surface-2); padding:.1em .4em; border-radius:4px; color:var(--accent-ink); font-size:.9em; }
+
+  .wrap { max-width: 780px; margin: 0 auto; padding: 48px 24px 120px; }
+
+  header.hero { margin-bottom: 34px; }
+  .eyebrow { font-weight:700; font-size:.76rem; letter-spacing:.08em; text-transform:uppercase; color:var(--accent-ink); display:block; margin-bottom:12px; }
+  h1 { font-family: var(--font-head); font-size: 1.9rem; font-weight:700; letter-spacing:-0.01em; text-wrap:balance; margin: 0 0 .3em; }
+  .dek { color: var(--muted); font-size: 1.02rem; max-width: 62ch; margin: 0 0 22px; }
+
+  .progress-card { background:var(--surface); border:1px solid var(--line); border-radius:14px; box-shadow:var(--shadow-soft); padding:18px 22px; }
+  .progress-top { display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin-bottom:10px; }
+  .progress-num { font-family: var(--font-mono); font-size:1.5rem; font-weight:600; font-variant-numeric: tabular-nums; }
+  .progress-num small { font-family: var(--font-head); font-size:.85rem; color:var(--muted); font-weight:500; }
+  .progress-track { height: 8px; border-radius: 999px; background: var(--surface-2); overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--accent); border-radius: 999px; width: 0%; transition: width .25s ease; }
+  .progress-actions { display:flex; justify-content:flex-end; margin-top:12px; }
+  .btn-reset { font-family:var(--font-head); font-size:.78rem; color:var(--muted); background:none; border:1px solid var(--line); border-radius:7px; padding:5px 10px; cursor:pointer; }
+  .btn-reset:hover { color:var(--ink); border-color:var(--muted); }
+
+  .legend { display:flex; gap:16px; flex-wrap:wrap; margin: 18px 0 6px; font-family:var(--font-head); font-size:.78rem; color:var(--muted); }
+  .legend b { color: var(--ink); }
+
+  .milestone { background:var(--surface); border:1px solid var(--line); border-radius:14px; box-shadow:var(--shadow-soft); margin: 22px 0; overflow:hidden; scroll-margin-top: 20px; }
+  .milestone > summary { list-style:none; cursor:pointer; display:flex; align-items:center; gap:14px; padding:16px 20px; }
+  .milestone > summary::-webkit-details-marker { display:none; }
+  .m-num { font-family:var(--font-mono); font-weight:700; color:var(--accent); background:var(--accent-soft); border-radius:8px; width:32px; height:32px; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:.86rem; }
+  .m-title { font-family:var(--font-head); font-weight:700; font-size:1rem; flex:1; }
+  .m-count { font-family: var(--font-mono); font-size: .78rem; color: var(--muted); font-variant-numeric: tabular-nums; white-space:nowrap; }
+  .m-chevron { color:var(--muted); transition: transform .15s; font-size:.8rem; }
+  .milestone[open] .m-chevron { transform: rotate(180deg); }
+  .m-body { padding: 4px 20px 22px; border-top:1px solid var(--line); }
+
+  .subgroup { font-size:.72rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); margin: 20px 0 8px; }
+  .subgroup:first-child { margin-top: 16px; }
+
+  ul.steps { list-style:none; margin:0; padding:0; }
+  ul.steps li { border-bottom: 1px solid var(--line); }
+  ul.steps li:last-child { border-bottom: none; }
+  .step { display:flex; align-items:flex-start; gap:12px; padding: 10px 4px; cursor:pointer; }
+  .step input[type="checkbox"] {
+    appearance: none; -webkit-appearance:none; width:19px; height:19px; border-radius:5px; border:1.6px solid var(--line);
+    background: var(--surface); flex-shrink:0; margin-top:2px; cursor:pointer; position:relative; transition: background .12s, border-color .12s;
+  }
+  .step input[type="checkbox"]:checked { background: var(--good); border-color: var(--good); }
+  .step input[type="checkbox"]:checked::after {
+    content:""; position:absolute; left:5px; top:1.5px; width:5px; height:9px; border:solid white; border-width:0 2px 2px 0; transform:rotate(45deg);
+  }
+  .step input[type="checkbox"]:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .step-label { font-family: var(--font-head); font-size: .92rem; line-height:1.45; color: var(--ink); }
+  .step.done .step-label { color: var(--muted); text-decoration: line-through; text-decoration-color: var(--line); }
+  .step-idx { font-family: var(--font-mono); font-size: .74rem; color: var(--muted); flex-shrink:0; margin-top:3px; min-width: 24px; }
+
+  .callout { border:1px solid var(--accent); border-left-width:3px; background:var(--accent-soft); border-radius:8px; padding:14px 16px; margin: 20px 0; font-family:var(--font-head); font-size:.88rem; }
+  .callout p { margin:0; color: var(--ink); }
+
+  footer.done-banner { display:none; text-align:center; padding: 20px; margin-top: 20px; border-radius: 14px; background: var(--good-soft); color: var(--good); font-family: var(--font-head); font-weight:700; }
+  footer.done-banner.show { display:block; }
+
+  @media (max-width: 600px) {
+    .wrap { padding: 32px 16px 100px; }
+    h1 { font-size: 1.5rem; }
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="hero">
+    <span class="eyebrow">JobMaxxing · Companion to the Backend Workbook</span>
+    <h1>MVP backend build checklist</h1>
+    <p class="dek">Every individual step to take JobMaxxing from frontend-only to a launched MVP — Foundation through Launch, nothing beyond MVP scope. Check items off as you go; your progress is saved automatically in this browser.</p>
+
+    <div class="progress-card">
+      <div class="progress-top">
+        <div class="progress-num"><span id="doneCount">0</span> / <span id="totalCount">0</span> <small>steps complete</small></div>
+        <div class="progress-num" id="pct">0%</div>
+      </div>
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="progress-actions"><button class="btn-reset" id="resetBtn">Reset all progress</button></div>
+    </div>
+
+    <div class="legend"><b>9 milestones</b> · <b>232 steps</b> · ordered — nothing depends on a step below it</div>
+  </header>
+
+  <div class="callout"><p>Scope note: this checklist covers Must Have + Nice-to-Have only (Auth, Job Tracker, Resume, ATS scoring, Dashboard, Settings/Profile, Security, Deployment, Launch) — matching the MVP definition from the workbook. GitHub, LinkedIn, real email sending, and AI features are deliberately excluded; they're Later/Future, not launch-blocking.</p></div>
+
+  <!-- ============================================================ MILESTONE 1 -->
+  <details class="milestone" open data-milestone="m1">
+    <summary><span class="m-num">1</span><span class="m-title">Foundation</span><span class="m-count" data-count>0/31</span><span class="m-chevron">▾</span></summary>
+    <div class="m-body">
+      <div class="subgroup">Backend project setup</div>
+      <ul class="steps" data-group="m1">
+        <li></li>
+      </ul>
+    </div>
+  </details>
+
+</div>
+
+<script id="checklist-data" type="application/json">
+{
+  "m1": {
+    "title": "Foundation",
+    "groups": [
+      { "label": "Backend project setup", "items": [
+        "Create a server/ directory at the project root for the backend, separate from the existing src/ frontend",
+        "Run npm init inside server/ to create its own package.json — the backend has its own dependency tree, independent from the frontend",
+        "Install express as the core web framework",
+        "Install dotenv to load environment variables from a .env file in development",
+        "Install cors (configuration comes later in Milestone 7 — install now, wire later)",
+        "Install nodemon as a dev dependency for auto-restart during development",
+        "Add a \"dev\" script running the entry file through nodemon, and a \"start\" script running it directly with node",
+        "Create server/src/app.js — the Express app instance, with JSON body parsing",
+        "Create server/src/server.js — the entry point that imports the app and starts it listening on a PORT",
+        "Create server/.env with at least PORT and NODE_ENV",
+        "Create server/.env.example mirroring every key in .env with no values, so required variables are documented for anyone setting the project up fresh",
+        "Add server/.env and server/node_modules to .gitignore"
+      ]},
+      { "label": "Health check", "items": [
+        "Add a GET /health route returning a simple JSON status payload — this becomes the endpoint your uptime monitor and hosting platform check later",
+        "Run npm run dev and confirm the server boots without errors",
+        "Hit /health with curl or a browser and confirm a 200 response"
+      ]},
+      { "label": "Database", "items": [
+        "Choose a managed Postgres provider (Railway, Render, Neon, or the Supabase project you already have) and provision a database instance",
+        "Copy the connection string into server/.env as DATABASE_URL, and add the key (no value) to .env.example",
+        "Install prisma and @prisma/client",
+        "Run npx prisma init to scaffold prisma/schema.prisma and confirm it points at DATABASE_URL",
+        "Define the User model in schema.prisma: id, email, password_hash, name, headline, avatar_url, created_at, updated_at",
+        "Run npx prisma migrate dev with a descriptive migration name to create the users table",
+        "Open Prisma Studio (npx prisma studio) and confirm the users table exists with the expected columns",
+        "Create server/src/lib/prisma.js exporting a single shared PrismaClient instance — every repository will import this, never instantiate its own client"
+      ]},
+      { "label": "Structure, logging, error handling", "items": [
+        "Create the full folder skeleton: routes/, controllers/, services/, repositories/, middlewares/, validators/, utils/, errors/, logger/, config/ under server/src/",
+        "Create server/src/config/env.js that reads every required environment variable at boot and throws a clear error if any is missing — fail fast instead of failing mysteriously later",
+        "Install a logging library (pino recommended) and create server/src/logger/index.js exporting a configured logger instance",
+        "Replace any console.log calls in app.js/server.js with the new logger",
+        "Create server/src/errors/AppError.js as a base error class, plus NotFoundError, ValidationError, UnauthorizedError, and ConflictError subclasses that each carry an HTTP status code",
+        "Create server/src/middlewares/errorHandler.js — a single centralized error-handling middleware, mounted last in app.js, mapping thrown errors to the right status code and a consistent JSON error shape",
+        "Temporarily throw a test error from a scratch route, confirm the error handler catches it and returns the expected shape, then delete the scratch route"
+      ]},
+      { "label": "Checkpoint", "items": [
+        "Commit: backend foundation (Express, Prisma, Postgres, folder structure, error handling, health check)"
+      ]}
+    ]
+  },
+  "m2": {
+    "title": "Authentication",
+    "groups": [
+      { "label": "Passwords & tokens", "items": [
+        "Install bcrypt",
+        "Create server/src/utils/password.js with a hash function and a compare function",
+        "Write a unit test confirming a password hashed then compared against itself succeeds, and against a wrong password fails",
+        "Install jsonwebtoken",
+        "Add JWT_ACCESS_SECRET and JWT_REFRESH_SECRET to .env and .env.example — generate them as long random strings, never reuse a \"test\" secret in production",
+        "Decide and document token lifetimes: short-lived access token (~15 minutes), longer-lived refresh token (~30 days)",
+        "Create server/src/utils/jwt.js with functions to sign an access token, sign a refresh token, verify an access token, and verify a refresh token",
+        "Define the RefreshToken model in schema.prisma: id, user_id (fk to User), token_hash, expires_at, revoked_at (nullable), created_at",
+        "Run the migration to create the refresh_tokens table"
+      ]},
+      { "label": "Data layer & validation", "items": [
+        "Create server/src/repositories/userRepository.js with findByEmail, findById, and create methods — the only file allowed to query the users table directly",
+        "Create server/src/repositories/refreshTokenRepository.js with create, findByHash, revoke, and revokeAllForUser methods",
+        "Install zod for schema validation",
+        "Create server/src/validators/authValidators.js with a signup schema (valid email, password minimum 8 characters, name required) and a login schema (email, password required)",
+        "Create server/src/middlewares/validate.js — a generic middleware factory that runs a given Zod schema against the request body and returns a 400 with details on failure"
+      ]},
+      { "label": "Service, controller, routes", "items": [
+        "Create server/src/services/authService.js with a signup method: check the email isn't already taken, hash the password, create the user row, create a default user_settings row in the same transaction, and issue both tokens",
+        "Add a login method: look up the user by email, compare the password, issue both tokens on success, throw a generic \"invalid credentials\" error on failure — never reveal whether the email exists",
+        "Add a refresh method: verify the incoming refresh token, confirm it isn't revoked or expired against the stored hash, revoke it, and issue a new refresh token and access token (rotation, not reuse)",
+        "Add a logout method: revoke the current refresh token",
+        "Create server/src/controllers/authController.js wiring each service method to a request handler that reads the body, calls the service, and shapes the response",
+        "Create server/src/routes/auth.js defining POST /signup, POST /login, POST /refresh, POST /logout, and GET /me",
+        "Mount the auth router at /api/auth in app.js",
+        "Create server/src/middlewares/requireAuth.js: extracts the bearer token from the Authorization header, verifies it, attaches the decoded user to req.user, and returns 401 on any failure",
+        "Protect GET /me with requireAuth; leave signup/login/refresh unprotected"
+      ]},
+      { "label": "Manual verification", "items": [
+        "Test signup with curl or Postman: confirm 201 and that both tokens are returned",
+        "Test signing up with the same email twice: confirm the second attempt returns 409",
+        "Test login with the correct password: confirm 200 and tokens",
+        "Test login with the wrong password: confirm 401 with a generic message",
+        "Test GET /me with no Authorization header: confirm 401",
+        "Test GET /me with a valid access token: confirm the correct user comes back",
+        "Test the refresh flow end-to-end: use a refresh token to get a new access token, confirm the old refresh token no longer works after rotation",
+        "Test logout: confirm the refresh token is rejected immediately after"
+      ]},
+      { "label": "Automated tests & cookie strategy", "items": [
+        "Write the eight scenarios above as automated integration tests (Jest or Vitest + supertest) against a real test database so they run in CI later",
+        "Decide where the refresh token lives on the client: recommend an httpOnly, Secure, SameSite cookie set by login/signup/refresh, with the access token held only in memory on the frontend (not localStorage) to limit XSS exposure",
+        "Update the login/signup/refresh controllers to set the refresh token as an httpOnly cookie",
+        "Install cookie-parser (or use Express's built-in cookie handling) and configure it in app.js",
+        "Commit: authentication backend complete"
+      ]},
+      { "label": "Frontend — API client & context", "items": [
+        "Create src/api/client.js: a fetch wrapper that reads a base API URL from an env var, attaches the in-memory access token as a bearer header, includes credentials for the cookie, and throws a typed error on non-2xx responses",
+        "Add VITE_API_URL to the frontend's .env and .env.example",
+        "Create src/context/AuthContext.jsx holding the current user, the access token, loading state, and login/signup/logout functions that call the API client",
+        "On mount, have AuthContext call GET /api/auth/me to silently restore a session if a valid refresh cookie exists",
+        "Wrap the app root in AuthProvider in main.jsx or App.jsx"
+      ]},
+      { "label": "Frontend — pages & routing", "items": [
+        "Create src/pages/auth/LoginPage.jsx with a real email/password form calling AuthContext's login",
+        "Create src/pages/auth/SignupPage.jsx with a real name/email/password form calling AuthContext's signup",
+        "Add /login and /signup routes to router.jsx, rendering outside the /app tree",
+        "Create src/components/ProtectedRoute.jsx that redirects to /login when AuthContext has no user (and isn't still loading)",
+        "Wrap the /app route's element with ProtectedRoute in router.jsx",
+        "Update Navbar.jsx: remove the disabled attribute and \"Soon\" badge from the Login button, link it to /login",
+        "Add a working logout action reachable in the app shell, calling AuthContext's logout and redirecting to the landing page"
+      ]},
+      { "label": "Frontend verification", "items": [
+        "Manual end-to-end test: sign up through the UI, land on /app/dashboard, refresh the page and confirm the session persists, log out, confirm redirect, then try to visit /app/dashboard directly while logged out and confirm redirect to /login",
+        "Commit: authentication frontend wired end-to-end"
+      ]}
+    ]
+  },
+  "m3": {
+    "title": "Core product loop — Job Tracker",
+    "groups": [
+      { "label": "Backend — model", "items": [
+        "Define an ApplicationStatus enum in schema.prisma: applied, screening, interview, offer, rejected",
+        "Define the JobApplication model: id, user_id (fk), company, role, status (default applied), applied_on (date), notes (nullable text), created_at, updated_at",
+        "Run the migration"
+      ]},
+      { "label": "Backend — CRUD", "items": [
+        "Create server/src/repositories/jobApplicationRepository.js: findAllByUser (optional status filter + sort), findByIdForUser (scoped to user_id, returns null if not owned), create, update, remove",
+        "Create server/src/validators/jobApplicationValidators.js: a create schema (company, role, appliedOn required) and a partial update schema",
+        "Create server/src/services/jobApplicationService.js wrapping the repository with an ownership check — throw NotFoundError if findByIdForUser returns null before any update or delete",
+        "Create server/src/controllers/jobApplicationController.js",
+        "Create server/src/routes/jobApplications.js: GET /, POST /, PATCH /:id, DELETE /:id — every route behind requireAuth",
+        "Mount the router at /api/job-applications"
+      ]},
+      { "label": "Backend verification", "items": [
+        "Test the full CRUD cycle via curl/Postman as one authenticated user",
+        "Create a second test user and confirm they get a 404 (not 403 — don't leak existence) when trying to PATCH or DELETE the first user's application by guessing its id",
+        "Test the status filter query param and the default sort",
+        "Write these as automated integration tests",
+        "Commit: job applications backend complete"
+      ]},
+      { "label": "Frontend — data layer", "items": [
+        "Install @tanstack/react-query",
+        "Create a QueryClient and wrap the app in QueryClientProvider",
+        "Create src/api/jobApplications.js with list/create/update/remove functions hitting the real endpoints through the API client",
+        "Create src/hooks/useJobApplications.js as a useQuery hook keyed ['job-applications']",
+        "Create mutation hooks: useCreateJobApplication, useUpdateJobApplicationStatus, useDeleteJobApplication",
+        "Implement the status-change mutation as optimistic: update the cached list immediately when a card moves columns, roll back on error, always refetch on settle",
+        "Delete src/data/jobTracker.js and src/data/useJobTrackerData.js; keep statusOrder/statusLabels as a small static config object (they're UI labels, not server data) — move them to e.g. src/config/jobStatus.js"
+      ]},
+      { "label": "Frontend — wire the page", "items": [
+        "Update JobTrackerPage.jsx to use the new hooks instead of the deleted mock hook",
+        "Build the \"Add application\" form/modal (company, role, applied date) and wire it to the create mutation, replacing the previously-inert button",
+        "Wire the Kanban's status-change interaction (drag, or a status control per card) to the update mutation",
+        "Add a delete affordance to each card (not present in the original mock UI) wired to the delete mutation, with a confirmation step"
+      ]},
+      { "label": "Verification", "items": [
+        "Manual test: add an application, move it through every status, delete it, reload the page and confirm everything persisted correctly",
+        "Commit: job applications frontend wired end-to-end — the core product loop is now real"
+      ]}
+    ]
+  },
+  "m4": {
+    "title": "Resume management",
+    "groups": [
+      { "label": "Storage setup", "items": [
+        "Choose a file storage provider: Cloudinary, AWS S3, or Supabase Storage (the Supabase project already exists — worth checking first)",
+        "Create the storage bucket/account and get credentials",
+        "Add storage credentials to .env and .env.example",
+        "Install the provider's SDK",
+        "Create server/src/storage/fileStorage.js with an upload function (buffer + filename + mimetype → URL) and a delete function",
+        "Install multer for multipart form parsing",
+        "Create server/src/middlewares/upload.js configuring multer with in-memory storage, a 10MB file size limit, and a mimetype allowlist (PDF and DOCX only)"
+      ]},
+      { "label": "Backend — models & service", "items": [
+        "Define the Resume model: id, user_id (fk), label, file_url, file_name, is_active (default false), created_at, updated_at",
+        "Define the ResumeSection model: id, resume_id (fk), name, status (enum: complete, needs_review, incomplete)",
+        "Run the migration",
+        "Create server/src/repositories/resumeRepository.js and resumeSectionRepository.js",
+        "Create server/src/services/resumeService.js: list, upload (calls storage, creates the row, seeds a default section-status pass), setActive (a transaction that unsets any other active resume for the user before setting the new one), remove (deletes both the stored file and the row; blocks with 409 if it's the user's only resume and is active)",
+        "Write the simplest possible section-completeness rule for now: every new upload starts with all five standard sections marked \"needs_review\" until real parsing exists — document this as a known placeholder, not a bug"
+      ]},
+      { "label": "Backend — endpoints", "items": [
+        "Create server/src/validators/resumeValidators.js",
+        "Create server/src/controllers/resumeController.js and server/src/routes/resumes.js: GET /, POST / (multipart), GET /:id, PATCH /:id, DELETE /:id",
+        "Mount the router at /api/resumes, behind requireAuth"
+      ]},
+      { "label": "Backend verification", "items": [
+        "Test uploading a real PDF via curl/Postman or a REST client that supports multipart",
+        "Test uploading a disallowed file type (e.g. .exe) and confirm a 400",
+        "Test uploading a file over the size limit and confirm a 400",
+        "Test the setActive transaction: upload two resumes, activate the second, confirm the first is automatically deactivated",
+        "Test deleting the only active resume and confirm a 409",
+        "Write these as automated integration tests",
+        "Commit: resume backend complete"
+      ]},
+      { "label": "Frontend", "items": [
+        "Create src/api/resumes.js and matching React Query hooks (list, upload with a loading/progress state, setActive, remove)",
+        "Delete src/data/resume.js and src/data/useResumeData.js",
+        "Update ResumePage.jsx: wire \"Upload new version\" to a real file input, show upload progress/a loading state on the button while the request is in flight",
+        "Wire the version list's set-active and delete actions to the corresponding mutations — add UI controls for these since the original mock only displayed a static list"
+      ]},
+      { "label": "Verification", "items": [
+        "Manual test: upload a resume, confirm it appears, mark it active, reload, confirm the active state and the file both persisted",
+        "Commit: resume frontend wired end-to-end"
+      ]}
+    ]
+  },
+  "m4b": {
+    "title": "ATS scoring (Nice to Have)",
+    "groups": [
+      { "label": "Backend", "items": [
+        "Install pdf-parse and mammoth for extracting raw text from uploaded PDF and DOCX resumes respectively",
+        "Define the AtsScan model: id, user_id (fk), resume_id (fk), target_role, score (smallint), checklist (jsonb), missing_keywords (jsonb), scanned_at",
+        "Run the migration",
+        "Create server/src/services/atsScorer.js as a pure function: given resume text and a pasted job description, tokenize the job description, strip stopwords, extract candidate keywords, check which appear in the resume text, and compute a 0–100 score from the match ratio",
+        "Add a small fixed checklist rule set to the same service: standard section headings present, file format is PDF, resume under a reasonable length — each producing a pass/warning/fail entry",
+        "Write unit tests for the scorer against a couple of known resume/job-description pairs with an expected score range",
+        "Create server/src/repositories/atsScanRepository.js, controller, and routes: POST /api/resumes/:id/ats-scan, GET /api/resumes/:id/ats-scans",
+        "Mount the router, behind requireAuth, with an ownership check that the resume belongs to req.user",
+        "Test running a scan via curl/Postman against a real uploaded resume and a sample job description"
+      ]},
+      { "label": "Frontend", "items": [
+        "Create the ATS API functions and React Query hooks",
+        "Delete src/data/ats.js and src/data/useAtsData.js",
+        "Update AtsPage.jsx: add a form for pasting the target role and job description, wire submission to the scan mutation, render the real returned checklist and missing-keywords list"
+      ]},
+      { "label": "Verification", "items": [
+        "Manual test: run a scan, confirm the score and checklist look reasonable for a real resume/job-description pair",
+        "Commit: ATS scoring complete"
+      ]}
+    ]
+  },
+  "m5": {
+    "title": "Dashboard",
+    "groups": [
+      { "label": "Backend — aggregation logic", "items": [
+        "Create server/src/services/dashboardService.js with a single getDashboard(userId) method",
+        "Implement the four stat tiles: total applications in the last 30 days vs. the prior 30 days (for the delta), a response rate (percentage of applications with status other than \"applied\"), an interview rate (percentage with status \"interview\" or later), and active pipeline count (applications not yet in a terminal state)",
+        "Implement applicationActivity: group applications by ISO week of applied_on for the last 6 weeks, counting applications per week and a \"responses\" count (applications whose status changed away from \"applied\" within that week, using updated_at as the proxy)",
+        "Implement pipelineFunnel: count of applications at or past each status in statusOrder, as both a raw count and a percentage of the total",
+        "Implement recentActivity: the most recent N job_application rows by updated_at, formatted as company/role/a human-readable event description/a relative time string",
+        "Explicitly decide to omit aiRecommendations from the response entirely for now — document this as the one dashboard widget still pending an LLM integration"
+      ]},
+      { "label": "Backend — endpoint & tests", "items": [
+        "Create the controller and route: GET /api/dashboard, behind requireAuth",
+        "Mount the router",
+        "Write an integration test that seeds a known set of job applications with known dates/statuses and asserts the exact expected numbers come back",
+        "Commit: dashboard backend complete"
+      ]},
+      { "label": "Frontend", "items": [
+        "Create the dashboard API function and a useDashboard React Query hook",
+        "Delete src/data/dashboard.js and src/data/useDashboardStats.js",
+        "Update DashboardPage.jsx to use the real hook",
+        "Remove or conditionally hide the AiRecommendationsPanel render, since the field no longer exists in the response"
+      ]},
+      { "label": "Verification", "items": [
+        "Manual test: with a handful of real job applications seeded through the UI, confirm every dashboard number matches what you'd expect by counting manually",
+        "Commit: dashboard frontend wired end-to-end"
+      ]}
+    ]
+  },
+  "m6": {
+    "title": "Settings & profile",
+    "groups": [
+      { "label": "Backend — settings", "items": [
+        "Define the UserSettings model: user_id (pk/fk), email_notifications (default true), weekly_digest (default true), interview_reminders (default true), ai_recommendation_alerts (default false), compact_sidebar (default false), updated_at",
+        "Run the migration",
+        "Go back to authService.signup (Milestone 2) and confirm it creates a UserSettings row with these defaults inside the same transaction as user creation — implement fully now if it was stubbed earlier",
+        "Create server/src/repositories/userSettingsRepository.js: get, update (partial)",
+        "Create server/src/services/userSettingsService.js",
+        "Create the controller and routes: GET /api/users/me/settings, PATCH /api/users/me/settings"
+      ]},
+      { "label": "Backend — profile", "items": [
+        "Create server/src/services/userService.js with a getMe method that joins the user row with computed stats: total job applications, total interviews with an outcome recorded, and total applications with status \"offer\"",
+        "Add an updateMe method (name, headline only — email changes are out of scope for MVP to avoid re-verification complexity)",
+        "Create the controller and routes: GET /api/users/me, PATCH /api/users/me",
+        "Mount both routers, behind requireAuth"
+      ]},
+      { "label": "Backend verification", "items": [
+        "Test GET and PATCH settings via curl/Postman, confirming a toggle persists across requests",
+        "Test GET /me against seeded data and confirm the computed stats are correct",
+        "Write these as automated integration tests",
+        "Commit: settings and profile backend complete"
+      ]},
+      { "label": "Frontend", "items": [
+        "Create settings API functions and useSettings/useUpdateSettings hooks, with the update mutation implemented optimistically (flip the toggle in the UI immediately, fire the request in the background, roll back only on error)",
+        "Delete src/data/settings.js and src/data/useSettingsData.js",
+        "Update SettingsPage.jsx to use the real hooks — this finally makes the existing toggle UI persist",
+        "Create a useMe hook (or fold into AuthContext) for GET /api/users/me",
+        "Delete src/data/profile.js and src/data/useProfileData.js",
+        "Update ProfilePage.jsx to use real user data",
+        "Replace the hardcoded Avatar name=\"Alex Kim\" in Sidebar.jsx with the authenticated user's real name from AuthContext/useMe",
+        "Replace the same hardcode in Topbar.jsx",
+        "Wire ProfilePage's \"Edit profile\" button to a real form calling the update mutation"
+      ]},
+      { "label": "Verification", "items": [
+        "Manual test: toggle a setting and reload to confirm persistence; edit your profile name and confirm it updates in the sidebar and topbar immediately",
+        "Commit: settings and profile frontend wired end-to-end — every hardcoded \"Alex Kim\" reference is now gone"
+      ]}
+    ]
+  },
+  "m7": {
+    "title": "Security & hardening",
+    "groups": [
+      { "label": "Rate limiting & headers", "items": [
+        "Install helmet and mount it as the first middleware in app.js",
+        "Configure an explicit CORS allowlist (not a wildcard) — the Vite dev origin in development, the real production frontend domain in production — read from an env var so it's not hardcoded",
+        "Install express-rate-limit",
+        "Create a strict rate limiter for /api/auth/* (e.g. 5 requests per minute per IP) to blunt brute-force and credential-stuffing attempts",
+        "Create a more permissive general rate limiter for the rest of the API",
+        "Apply both limiters in app.js"
+      ]},
+      { "label": "Authorization & data audit", "items": [
+        "Go through every route file and confirm requireAuth is present on every route except signup, login, refresh, and /health",
+        "Go through every repository file and confirm every query that touches user-owned data filters by user_id — a literal line-by-line audit, not a spot check",
+        "Write the two-user ownership-isolation test explicitly for every domain (job applications, resumes, settings, ATS scans) if not already covered"
+      ]},
+      { "label": "Secrets & logging hygiene", "items": [
+        "Review the error handler: confirm that in production (NODE_ENV=production) no stack trace or internal error detail is ever included in the response body",
+        "Grep the entire backend codebase for any logger or console call that might include a password, token, or full request body, and redact or remove it",
+        "Add request-id correlation to the logger (pino-http or equivalent) so a single request's logs can be traced end-to-end",
+        "Run npm audit in both the frontend and backend, and resolve any high or critical findings",
+        "Enable Dependabot (or Renovate) on the GitHub repository for both package.json files",
+        "Confirm .env has never been committed to git history — rotate any secret that was ever accidentally committed",
+        "Finalize .env.example in both frontend and backend so every required variable name is listed with no real values",
+        "Set Secure, HttpOnly, and SameSite flags on the refresh-token cookie for production"
+      ]},
+      { "label": "Checkpoint", "items": [
+        "Commit: security hardening pass complete"
+      ]}
+    ]
+  },
+  "m8": {
+    "title": "Deployment",
+    "groups": [
+      { "label": "Backend hosting", "items": [
+        "Choose a backend host (Railway or Render) and create an account/project",
+        "Provision managed Postgres on the same platform, or point at the existing database if already provisioned elsewhere",
+        "Set every production environment variable in the platform's dashboard: DATABASE_URL, JWT secrets, storage credentials, CORS origin, NODE_ENV=production — never via a committed file",
+        "Configure the platform's build and start commands so migrations run automatically on deploy (install dependencies, run prisma migrate deploy, then start the server)",
+        "Deploy the backend and confirm GET /health returns 200 on the public URL"
+      ]},
+      { "label": "Frontend hosting", "items": [
+        "Choose a frontend host (Vercel or Netlify) and connect the GitHub repository",
+        "Set the frontend's production environment variables (VITE_API_URL pointing at the deployed backend, plus the existing VITE_SUPABASE_* keys)",
+        "Deploy the frontend and confirm it loads, and that a network request in the browser devtools successfully reaches the backend",
+        "Point a custom domain at both deployments if one exists, and confirm HTTPS is enforced on both"
+      ]},
+      { "label": "CI/CD & monitoring", "items": [
+        "Create a CI workflow (GitHub Actions) that runs on every pull request: install dependencies, lint, run unit and integration tests, and build both frontend and backend",
+        "Confirm merges to main auto-deploy (via the hosting platform's native git integration, or a dedicated deploy workflow) — ideally to a staging environment first, promoted to production manually",
+        "Sign up for Sentry, install the SDK in both the backend and frontend, and wire the DSNs through environment variables",
+        "Sign up for a free uptime monitor and point it at the deployed /health endpoint",
+        "Confirm the managed Postgres provider has automatic backups enabled, and note how to restore from one before you ever need to"
+      ]},
+      { "label": "Checkpoint", "items": [
+        "Commit and tag a release (e.g. v0.1.0-mvp)"
+      ]}
+    ]
+  },
+  "m9": {
+    "title": "Launch",
+    "groups": [
+      { "label": "Final verification", "items": [
+        "Write a single end-to-end script (Playwright) covering the full critical path against the deployed staging/production URL: sign up, add a job application, see it reflected on the dashboard, log out, log back in, confirm the application is still there",
+        "Run that script and fix anything it surfaces",
+        "Manually click through every MVP page as a real user one final time: landing page, signup, login, dashboard, job tracker (add/move/delete), resume (upload/activate), ATS, settings (toggle), profile (edit)",
+        "Confirm the production DNS points at the real deployment (cut over from any placeholder)",
+        "Do a final security skim: confirm no test/debug routes are still mounted, no console.log of sensitive data remains, and CORS is locked to the real domain"
+      ]},
+      { "label": "Ship it", "items": [
+        "Launch",
+        "Watch Sentry and the uptime monitor closely for the first 48 hours, with a fast-follow branch ready for any hotfix"
+      ]}
+    ]
+  }
+}
+</script>
+
+<footer class="done-banner" id="doneBanner">Every step checked. Ship it. 🚀</footer>
+
+<script>
+(function () {
+  var STORAGE_KEY = "jobmaxxing-backend-checklist-v1";
+  var data = JSON.parse(document.getElementById("checklist-data").textContent);
+  var wrap = document.querySelector(".wrap");
+  var firstMilestone = document.querySelector('.milestone[data-milestone="m1"]');
+
+  var order = ["m1", "m2", "m3", "m4", "m4b", "m5", "m6", "m7", "m8", "m9"];
+  var checked = {};
+  try { checked = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}"); } catch (e) { checked = {}; }
+
+  function save() { localStorage.setItem(STORAGE_KEY, JSON.stringify(checked)); }
+
+  function buildMilestone(key, index) {
+    var m = data[key];
+    var details = document.createElement("details");
+    details.className = "milestone";
+    details.dataset.milestone = key;
+    if (index === 0) details.open = true;
+
+    var summary = document.createElement("summary");
+    summary.innerHTML =
+      '<span class="m-num">' + (index + 1) + '</span>' +
+      '<span class="m-title">' + m.title + '</span>' +
+      '<span class="m-count" data-count></span>' +
+      '<span class="m-chevron">▾</span>';
+    details.appendChild(summary);
+
+    var body = document.createElement("div");
+    body.className = "m-body";
+
+    var itemIdx = 0;
+    m.groups.forEach(function (group) {
+      var h = document.createElement("div");
+      h.className = "subgroup";
+      h.textContent = group.label;
+      body.appendChild(h);
+
+      var ul = document.createElement("ul");
+      ul.className = "steps";
+
+      group.items.forEach(function (text) {
+        itemIdx += 1;
+        var id = key + "-" + itemIdx;
+        var li = document.createElement("li");
+        var label = document.createElement("label");
+        label.className = "step" + (checked[id] ? " done" : "");
+
+        var idxSpan = document.createElement("span");
+        idxSpan.className = "step-idx";
+        idxSpan.textContent = itemIdx + ".";
+
+        var input = document.createElement("input");
+        input.type = "checkbox";
+        input.checked = !!checked[id];
+        input.dataset.id = id;
+        input.dataset.milestone = key;
+
+        var span = document.createElement("span");
+        span.className = "step-label";
+        span.textContent = text;
+
+        input.addEventListener("change", function () {
+          checked[id] = input.checked;
+          label.classList.toggle("done", input.checked);
+          save();
+          updateProgress();
+        });
+
+        label.appendChild(idxSpan);
+        label.appendChild(input);
+        label.appendChild(span);
+        li.appendChild(label);
+        ul.appendChild(li);
+      });
+
+      body.appendChild(ul);
+    });
+
+    details.appendChild(body);
+    return { el: details, total: itemIdx };
+  }
+
+  var totals = {};
+  var grandTotal = 0;
+  order.forEach(function (key, i) {
+    var built = buildMilestone(key, i);
+    totals[key] = built.total;
+    grandTotal += built.total;
+    firstMilestone.replaceWith === undefined ? null : null;
+    wrap.appendChild(built.el);
+  });
+  firstMilestone.remove();
+
+  document.getElementById("totalCount").textContent = grandTotal;
+
+  function updateProgress() {
+    var done = 0;
+    order.forEach(function (key) {
+      var mDone = 0;
+      document.querySelectorAll('input[data-milestone="' + key + '"]').forEach(function (cb) {
+        if (cb.checked) mDone += 1;
+      });
+      done += mDone;
+      var badge = document.querySelector('.milestone[data-milestone="' + key + '"] [data-count]');
+      if (badge) badge.textContent = mDone + "/" + totals[key];
+    });
+    document.getElementById("doneCount").textContent = done;
+    var pct = grandTotal ? Math.round((done / grandTotal) * 100) : 0;
+    document.getElementById("pct").textContent = pct + "%";
+    document.getElementById("progressFill").style.width = pct + "%";
+    document.getElementById("doneBanner").classList.toggle("show", done === grandTotal && grandTotal > 0);
+  }
+
+  document.getElementById("resetBtn").addEventListener("click", function () {
+    if (!confirm("Clear all checked steps? This can't be undone.")) return;
+    checked = {};
+    save();
+    document.querySelectorAll('input[type="checkbox"]').forEach(function (cb) {
+      cb.checked = false;
+      cb.closest(".step").classList.remove("done");
+    });
+    updateProgress();
+  });
+
+  updateProgress();
+})();
+</script>

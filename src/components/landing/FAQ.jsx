@@ -13,7 +13,7 @@ const faqs = [
   },
   {
     q: 'When will it launch?',
-    a: 'We\'re currently in pre-launch. Our first feature, Resume Maxxing, is targeted for Q1 2026. Join the waitlist to be notified the moment we go live and get early access before the general public.',
+    a: 'We\'re currently in pre-launch. Our first feature, Resume Maxxing, is targeted for Q3 2026. Join the waitlist to be notified the moment we go live and get early access before the general public.',
   },
   {
     q: 'Is it free?',
@@ -41,26 +41,15 @@ function FAQItem({ faq, index }) {
   const [open, setOpen] = useState(false);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.4, delay: index * 0.06 }}
-      className="rounded-xl overflow-hidden"
-      style={{ border: '1px solid rgba(255,255,255,0.07)' }}
-    >
+    <div className="overflow-hidden rounded-xl border border-line">
       <button
         onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between gap-4 p-5 text-left hover:bg-white/[0.03] transition-colors duration-200"
+        className="flex w-full items-center justify-between gap-4 p-5 text-left transition-colors duration-150 hover:bg-canvas"
         id={`faq-${index}`}
       >
-        <span className="text-white font-semibold text-sm md:text-base pr-2">{faq.q}</span>
-        <motion.div
-          animate={{ rotate: open ? 180 : 0 }}
-          transition={{ duration: 0.25 }}
-          className="flex-shrink-0"
-        >
-          <ChevronDown className="w-5 h-5 text-white/40" />
+        <span className="pr-2 text-sm font-semibold text-ink md:text-base">{faq.q}</span>
+        <motion.div animate={{ rotate: open ? 180 : 0 }} transition={{ duration: 0.2 }} className="shrink-0">
+          <ChevronDown className="h-5 w-5 text-muted" />
         </motion.div>
       </button>
 
@@ -70,19 +59,16 @@ function FAQItem({ faq, index }) {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: 'easeInOut' }}
+            transition={{ duration: 0.2, ease: 'easeInOut' }}
             className="accordion-content"
           >
-            <div
-              className="px-5 pb-5 text-white/50 text-sm leading-relaxed"
-              style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}
-            >
+            <div className="border-t border-line px-5 pb-5 text-sm leading-relaxed text-muted">
               <div className="pt-4">{faq.a}</div>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.div>
+    </div>
   );
 }
 
@@ -90,23 +76,16 @@ export default function FAQ() {
   return (
     <section id="faq" className="section-padding relative overflow-hidden">
       <div className="container-custom">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12"
-        >
-          <span className="text-sm font-semibold text-blue-400/80 tracking-widest uppercase mb-4 block">FAQ</span>
-          <h2 className="text-3xl md:text-5xl font-black text-white leading-tight max-w-2xl mx-auto">
-            Frequently Asked{' '}
-            <span className="text-gradient">Questions</span>
+        <div className="mb-12 text-center">
+          <span className="mb-4 block text-sm font-semibold uppercase tracking-widest text-muted">FAQ</span>
+          <h2 className="mx-auto max-w-2xl font-heading text-3xl font-black leading-tight text-ink md:text-5xl">
+            Frequently Asked Questions
           </h2>
-        </motion.div>
+        </div>
 
-        <div className="max-w-3xl mx-auto space-y-3">
+        <div className="mx-auto max-w-3xl space-y-3">
           {faqs.map((faq, i) => (
-            <FAQItem key={i} faq={faq} index={i} />
+            <FAQItem key={faq.q} faq={faq} index={i} />
           ))}
         </div>
       </div>

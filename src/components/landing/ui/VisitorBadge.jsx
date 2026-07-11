@@ -50,36 +50,18 @@ export default function VisitorBadge() {
     <AnimatePresence>
       {visible && count !== null && (
         <motion.div
-          initial={{ opacity: 0, y: 20, scale: 0.9 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: 20, scale: 0.9 }}
-          transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 12 }}
+          transition={{ duration: 0.2 }}
           className="fixed bottom-6 right-6 z-50"
         >
-          <div
-            className="flex items-center gap-2.5 px-4 py-2.5 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.5)]"
-            style={{
-              background: 'rgba(10,10,20,0.85)',
-              border: '1px solid rgba(99,102,241,0.35)',
-              backdropFilter: 'blur(16px)',
-              WebkitBackdropFilter: 'blur(16px)',
-            }}
-          >
-            <Users className="w-3.5 h-3.5 text-indigo-400" />
+          <div className="flex items-center gap-2.5 rounded-2xl border border-line bg-surface px-4 py-2.5 shadow-soft-hover">
+            <Users className="h-3.5 w-3.5 text-accent" />
 
             <div className="flex flex-col leading-none">
-              <span
-                className="font-black text-sm"
-                style={{
-                  background: 'linear-gradient(135deg, #60A5FA, #A78BFA)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
-                }}
-              >
-                {count.toLocaleString()}
-              </span>
-              <span className="text-white/40 text-[10px] font-medium mt-0.5">visitors today</span>
+              <span className="font-heading text-sm font-black text-ink">{count.toLocaleString()}</span>
+              <span className="mt-0.5 text-[10px] font-medium text-muted">visitors today</span>
             </div>
           </div>
         </motion.div>

@@ -1,15 +1,26 @@
-import { LayoutDashboard, Settings } from 'lucide-react';
+import {
+  LayoutDashboard,
+  Settings,
+  FileText,
+  GitBranch,
+  Globe,
+  ShieldCheck,
+  Link as LinkIcon,
+  MessageSquare,
+  Mail,
+  Briefcase,
+} from 'lucide-react';
 
 export const primaryNavItems = [
   { label: 'Dashboard', path: '/app/dashboard', icon: LayoutDashboard },
-  { label: 'Resume', path: '/app/resume' },
-  { label: 'GitHub', path: '/app/github' },
-  { label: 'Portfolio', path: '/app/portfolio' },
-  { label: 'ATS', path: '/app/ats' },
-  { label: 'LinkedIn', path: '/app/linkedin' },
-  { label: 'Interviews', path: '/app/interviews' },
-  { label: 'Cold Email', path: '/app/cold-email' },
-  { label: 'Job Tracker', path: '/app/job-tracker' },
+  { label: 'Resume', path: '/app/resume', icon: FileText },
+  { label: 'GitHub', path: '/app/github', icon: GitBranch },
+  { label: 'Portfolio', path: '/app/portfolio', icon: Globe },
+  { label: 'ATS', path: '/app/ats', icon: ShieldCheck },
+  { label: 'LinkedIn', path: '/app/linkedin', icon: LinkIcon },
+  { label: 'Interviews', path: '/app/interviews', icon: MessageSquare },
+  { label: 'Cold Email', path: '/app/cold-email', icon: Mail },
+  { label: 'Job Tracker', path: '/app/job-tracker', icon: Briefcase },
 ];
 
 export const secondaryNavItems = [{ label: 'Settings', path: '/app/settings', icon: Settings }];

@@ -31,7 +31,7 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative flex min-h-screen items-center justify-center overflow-hidden pt-16">
+    <section className="relative flex min-h-screen items-center justify-center overflow-hidden pt-[6.25rem]">
       <div className="container-custom relative z-10 w-full px-4 py-20">
         <div className="grid grid-cols-1 items-center gap-6 lg:grid-cols-[180px_1fr_180px] xl:grid-cols-[200px_1fr_200px]">
           <div className="hidden flex-col items-center gap-5 lg:flex">

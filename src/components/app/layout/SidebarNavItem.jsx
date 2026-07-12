@@ -11,7 +11,7 @@ export default function SidebarNavItem({ item, collapsed, onClick }) {
       title={collapsed ? item.label : undefined}
       className={({ isActive }) =>
         cn(
-          'flex items-center gap-3 rounded-lg border-l-2 border-transparent px-3 py-2 text-sm text-muted transition-colors duration-150 hover:bg-canvas hover:text-ink',
+          'flex h-9 items-center gap-3 rounded-lg border-l-2 border-transparent px-3 text-sm text-muted transition-colors duration-150 hover:bg-canvas hover:text-ink',
           collapsed && 'justify-center px-0',
           isActive && 'border-accent bg-accent-soft font-semibold text-accent hover:bg-accent-soft hover:text-accent'
         )

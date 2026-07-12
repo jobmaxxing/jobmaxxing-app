@@ -1,19 +1,38 @@
 import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import { X } from 'lucide-react';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { X, LogOut } from 'lucide-react';
 import SidebarNavItem from './SidebarNavItem';
 import Avatar from '../../ui/Avatar';
 import { LogoIcon } from '../../ui/LogoIcon';
 import { cn } from '../../ui/cn';
+import { useAuth } from '../../../context/useAuth';
 import { primaryNavItems, secondaryNavItems } from '../../../data/navigation';
 
 function SidebarContent({ collapsed, onNavigate }) {
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
+  const displayName = user?.user_metadata?.name || user?.email?.split('@')[0] || 'Account';
+
+  const handleSignOut = async () => {
+    if (onNavigate) onNavigate();
+    await signOut();
+    navigate('/', { replace: true });
+  };
+
   return (
     <>
-      <div className={cn('flex items-center gap-2 px-4 py-5', collapsed && 'justify-center px-0')}>
+      <Link
+        to="/"
+        onClick={onNavigate}
+        title="Back to home"
+        className={cn(
+          'flex items-center gap-2 px-4 py-5 transition-opacity duration-150 hover:opacity-70',
+          collapsed && 'justify-center px-0'
+        )}
+      >
         <LogoIcon size={24} />
         {!collapsed && <span className="font-heading text-base font-semibold text-ink">JobMaxxing</span>}
-      </div>
+      </Link>
 
       <nav className="flex-1 space-y-1 overflow-y-auto px-3">
         {primaryNavItems.map((item) => (
@@ -32,20 +51,33 @@ function SidebarContent({ collapsed, onNavigate }) {
           title={collapsed ? 'Profile' : undefined}
           className={({ isActive }) =>
             cn(
-              'flex items-center gap-3 rounded-lg px-3 py-2 transition-colors duration-150 hover:bg-canvas',
+              'flex min-h-9 items-center gap-3 rounded-lg px-3 py-2 transition-colors duration-150 hover:bg-canvas',
               collapsed && 'justify-center px-0',
               isActive && 'bg-accent-soft'
             )
           }
         >
-          <Avatar name="Alex Kim" size="sm" />
+          <Avatar name={displayName} size="sm" />
           {!collapsed && (
             <div className="min-w-0">
-              <p className="truncate text-sm font-medium text-ink">Alex Kim</p>
-              <p className="truncate text-xs text-muted">alex@jobmaxxing.io</p>
+              <p className="truncate text-sm font-medium text-ink">{displayName}</p>
+              <p className="truncate text-xs text-muted">{user?.email}</p>
             </div>
           )}
         </NavLink>
+
+        <button
+          type="button"
+          title={collapsed ? 'Sign out' : undefined}
+          onClick={handleSignOut}
+          className={cn(
+            'flex h-9 w-full items-center gap-3 rounded-lg px-3 text-sm text-muted transition-colors duration-150 hover:bg-canvas hover:text-ink',
+            collapsed && 'justify-center px-0'
+          )}
+        >
+          <LogOut className="h-4 w-4 shrink-0" />
+          {!collapsed && <span>Sign out</span>}
+        </button>
       </div>
     </>
   );

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, LayoutDashboard } from 'lucide-react';
 import { LogoIcon } from '../ui/LogoIcon';
 
 const navLinks = [
@@ -33,6 +34,14 @@ export default function Navbar() {
           scrolled ? 'border-b border-line bg-surface/95 shadow-soft backdrop-blur-sm' : 'bg-transparent'
         }`}
       >
+        <Link
+          to="/app/dashboard"
+          className="flex h-9 items-center justify-center gap-2 bg-accent px-4 text-center text-xs font-medium text-white transition-colors duration-150 hover:bg-[#3f7de0] sm:text-sm"
+        >
+          <LayoutDashboard className="h-3.5 w-3.5 shrink-0" />
+          New — sign up and try the dashboard →
+        </Link>
+
         <div className="container-custom flex h-16 items-center justify-between px-6">
           <a
             href="#"
@@ -60,15 +69,12 @@ export default function Navbar() {
           </div>
 
           <div className="hidden items-center gap-3 md:flex">
-            <button
-              disabled
-              className="flex cursor-not-allowed items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium text-muted"
+            <Link
+              to="/login"
+              className="rounded-lg px-4 py-2 text-sm font-medium text-muted transition-colors duration-150 hover:text-ink"
             >
               Login
-              <span className="rounded border border-line bg-canvas px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-widest text-muted">
-                Soon
-              </span>
-            </button>
+            </Link>
             <a
               href="#waitlist"
               onClick={(e) => handleNavClick(e, '#waitlist')}
@@ -94,7 +100,7 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.15 }}
-            className="fixed top-16 left-0 right-0 z-40 border-b border-line bg-surface px-6 py-6 shadow-soft md:hidden"
+            className="fixed top-[6.25rem] left-0 right-0 z-40 border-b border-line bg-surface px-6 py-6 shadow-soft md:hidden"
           >
             <div className="flex flex-col gap-5">
               {navLinks.map((link) => (
@@ -108,6 +114,9 @@ export default function Navbar() {
                 </a>
               ))}
               <div className="flex flex-col gap-3 border-t border-line pt-3">
+                <Link to="/login" onClick={() => setMobileOpen(false)} className="text-base font-medium text-ink">
+                  Login
+                </Link>
                 <a
                   href="#waitlist"
                   onClick={(e) => handleNavClick(e, '#waitlist')}

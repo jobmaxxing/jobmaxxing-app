@@ -1,5 +1,8 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import LandingPage from './pages/landing/LandingPage';
+import LoginPage from './pages/auth/LoginPage';
+import SignupPage from './pages/auth/SignupPage';
+import ProtectedRoute from './components/ProtectedRoute';
 import AppShell from './components/app/layout/AppShell';
 import DashboardPage from './pages/app/DashboardPage';
 import ResumePage from './pages/app/ResumePage';
@@ -18,20 +21,24 @@ export default function AppRouter() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<LandingPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
 
-        <Route path="/app" element={<AppShell />}>
-          <Route index element={<Navigate to="dashboard" replace />} />
-          <Route path="dashboard" element={<DashboardPage />} />
-          <Route path="resume" element={<ResumePage />} />
-          <Route path="github" element={<GitHubPage />} />
-          <Route path="portfolio" element={<PortfolioPage />} />
-          <Route path="ats" element={<AtsPage />} />
-          <Route path="linkedin" element={<LinkedInPage />} />
-          <Route path="interviews" element={<InterviewsPage />} />
-          <Route path="cold-email" element={<ColdEmailPage />} />
-          <Route path="job-tracker" element={<JobTrackerPage />} />
-          <Route path="settings" element={<SettingsPage />} />
-          <Route path="profile" element={<ProfilePage />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path="/app" element={<AppShell />}>
+            <Route index element={<Navigate to="dashboard" replace />} />
+            <Route path="dashboard" element={<DashboardPage />} />
+            <Route path="resume" element={<ResumePage />} />
+            <Route path="github" element={<GitHubPage />} />
+            <Route path="portfolio" element={<PortfolioPage />} />
+            <Route path="ats" element={<AtsPage />} />
+            <Route path="linkedin" element={<LinkedInPage />} />
+            <Route path="interviews" element={<InterviewsPage />} />
+            <Route path="cold-email" element={<ColdEmailPage />} />
+            <Route path="job-tracker" element={<JobTrackerPage />} />
+            <Route path="settings" element={<SettingsPage />} />
+            <Route path="profile" element={<ProfilePage />} />
+          </Route>
         </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />
